@@ -97,7 +97,7 @@ class TestWiedemanSparse(unittest.TestCase):
         self.assertEqual(list(result), list(expected))
 
     def test_wiedeman_sparse_50x50(self):
-        A = generate_sparse_matrix(50, density=0.6)
+        A = generate_sparse_matrix(50, density=0.5)
         b = field.Random(50)
         result = wiedeman_sparse(A, b, verbose=False)
         expected = np.linalg.solve(A.toarray().view(field), b)
