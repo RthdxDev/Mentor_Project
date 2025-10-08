@@ -75,7 +75,7 @@ class TestWiedeman(unittest.TestCase):
 def generate_sparse_matrix(n, density=0.5):
     A = sp.sparse.random(n, n, density=density, format='csr', dtype=int)
     A = sp.sparse.csr_matrix(A.toarray() % modulus)
-    while sp.linalg.det(A.toarray()) == 0:
+    while np.linalg.det(A.toarray().view(field)) == 0:
         A = sp.sparse.random(n, n, density=density, format='csr', dtype=int)
         A = sp.sparse.csr_matrix(A.toarray() % modulus)
     return A

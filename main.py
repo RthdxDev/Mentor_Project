@@ -55,7 +55,7 @@ def wiedeman(A: FieldMatrix, b: FieldMatrix, verbose: bool=True) -> FieldMatrix:
     d_k: int = 0
     while not all(b_k == 0):
         if verbose:
-            print(f"Iteration {k}, d_k = {d_k}")
+            print(f"Iteration {k + 1}, d_k = {d_k}")
         u_k = field.Random(n)
         seq: FieldMatrix = field.Zeros(2 * (n - d_k))
         w_k = b_k.copy()
@@ -77,6 +77,8 @@ def wiedeman(A: FieldMatrix, b: FieldMatrix, verbose: bool=True) -> FieldMatrix:
         b_k = b + A @ y_k
         d_k += f_k_deg
         k += 1
+    if verbose:
+        print(f"Finished in {k} iterations.")
     return -y_k
 
 
@@ -98,7 +100,7 @@ def wiedeman_sparse(A: FieldCSRMatrix, b: FieldMatrix, verbose: bool=True) -> Fi
     d_k: int = 0
     while not all(b_k == 0):
         if verbose:
-            print(f"Iteration {k}, d_k = {d_k}")
+            print(f"Iteration {k + 1}, d_k = {d_k}")
         u_k = field.Random(n)
         seq: FieldMatrix = field.Zeros(2 * (n - d_k))
         w_k = b_k.copy()
@@ -118,6 +120,8 @@ def wiedeman_sparse(A: FieldCSRMatrix, b: FieldMatrix, verbose: bool=True) -> Fi
             f_k_minus: FieldPoly = FieldPoly(f_k.coeffs[:-1], field=field)
         y_k += poly_on_matrix(f_k_minus, A, b_k)
         b_k = b + (A @ y_k % modulus).view(field)
-        d_k += f_k.degree
+        d_k += f_k_deg
         k += 1
+    if verbose:
+        print(f"Finished in {k} iterations.")
     return -y_k
