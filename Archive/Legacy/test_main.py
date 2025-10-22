@@ -2,7 +2,7 @@ import unittest
 import galois
 import numpy as np
 import scipy as sp
-from main import berlekamp_massey, wiedeman, wiedeman_sparse, field
+from Archive.Legacy.main import berlekamp_massey, wiedeman, wiedeman_sparse, field
 
 # np.random.seed(42)
 modulus = field.characteristic
